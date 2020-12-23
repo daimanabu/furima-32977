@@ -2,18 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------------- | ------ | ----------- |
-| nickname        | string | null: false |
-| email           | string | null: false |
-| password        | string | null: false |
-| first_name      | text   | null: false |
-| last_name       | text   | null: false |
-| first_name_kana | text   | null: false |
-| last_name_kana  | text   | null: false |
-| birthday_year   | string | null: false |
-| birthday_month  | string | null: false |
-| birthday_day    | string | null: false |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_name_kana    | string | null: false |
+| last_name_kana     | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
@@ -23,48 +21,48 @@
 
 ## items テーブル
 
-| Column             | Type       | Options                        |
-| ------------------ | ---------- | ------------------------------ |
-| item_name          | string     | null: false                    |
-| item_description   | text       | null: false                    |
-| item_category      | string     | null: false                    |
-| item_state         | text       | null: false                    |
-| item_shipping_fee  | string     | null: false                    |
-| item_shipping_area | string     | null: false                    |
-| item_shipping_days | string     | null: false                    |
-| item_sell_price    | integer    | null: false                    |
-| user               | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| name             | string     | null: false                    |
+| description      | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| state_id         | integer    | null: false                    |
+| shipping_fee_id  | integer    | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| shipping_days_id | integer    | null: false                    |
+| sell_price       | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :purchase_items
+- has_one :purchase_items
 
 ## purchase_items テーブル
 
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| user             | references | null: false, foreign_key: true |
-| item             | references | null: false, foreign_key: true |
-| delivery_address | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- has_one :delivery_addresses
 
 ## delivery_addresses テーブル
 
-| Column                | Type       | Options                        |
-| --------------------- | ---------- | ------------------------------ |
-| postal_code           | string     | null: false                    |
-| state/province/region | string     | null: false                    |
-| city                  | string     | null: false                    |
-| address_line          | string     | null: false                    |
-| building_name         | string     | null: false                    |
-| phone_number          | string     | null: false                    |
-| user                  | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| region_id     | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address_line  | string     | null: false                    |
+| building_name | string     |                                |
+| phone_number  | string     | null: false                    |
+| purchase_item | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
+- belongs_to :purchase_item
