@@ -52,15 +52,15 @@
 
 ## delivery_addresses テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| postal_code   | string     | null: false                    |
-| region_id     | integer    | null: false                    |
-| city          | string     | null: false                    |
-| address_line  | string     | null: false                    |
-| building_name | string     |                                |
-| phone_number  | string     | null: false                    |
-| purchase_item | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false                    |
+| shipping_area_id | integer    | null: false                    |
+| city             | string     | null: false                    |
+| address_line     | string     | null: false                    |
+| building_name    | string     |                                |
+| phone_number     | string     | null: false                    |
+| purchase_item    | references | null: false, foreign_key: true |
 
 ### Association
 
