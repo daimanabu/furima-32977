@@ -67,15 +67,15 @@ RSpec.describe Item, type: :model do
 
 
 
-      it "sell_priceの範囲が、300以下では登録できないこと" do
-        @item.sell_price = 10
+      it "sell_priceの範囲が、299以下では登録できないこと" do
+        @item.sell_price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sell price must be greater than 300")
+        expect(@item.errors.full_messages).to include("Sell price must be greater than 299")
       end
-      it "sell_priceの範囲が、9999999以上では登録できないこと" do
-        @item.sell_price = 100000000000000
+      it "sell_priceの範囲が、10000000以上では登録できないこと" do
+        @item.sell_price = 10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sell price must be less than 9999999")
+        expect(@item.errors.full_messages).to include("Sell price must be less than 10000000")
       end
 
       it "sell_priceは半角数字でなければ保存できないこと" do

@@ -18,14 +18,17 @@ class Item < ApplicationRecord
   with_options presence: true, numericality: { with: /\A[0-9]+\z/, message: '全て数値（半角）を使用してください' } do
     validates :sell_price
   end
-  validates :sell_price, numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
+  validates :sell_price, numericality: { only_integer: true, greater_than: 299, less_than: 10000000 }
 
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :state_id, numericality: { other_than: 1 }
-  validates :shipping_fee_id, numericality: { other_than: 1 }
-  validates :shipping_area_id, numericality: { other_than: 1 }
-  validates :shipping_day_id, numericality: { other_than: 1 }
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :state_id
+    validates :shipping_fee_id
+    validates :shipping_area_id
+    validates :shipping_day_id
+
+  end
 
   
 end
