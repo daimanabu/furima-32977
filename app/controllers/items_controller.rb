@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.valid?
     if @item.save
       return redirect_to root_path
     else
