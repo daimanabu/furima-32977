@@ -8,11 +8,13 @@ RSpec.describe UserPurchase, type: :model do
       @user_purchase = FactoryBot.build(:user_purchase, user_id: user.id, item_id: item.id)
     end
 
-    
-
     context '内容に問題ない場合' do
       it "すべての値が正しく入力されていれば保存できること" do
         expect(@user_purchase).to be_valid
+      end
+      it '建物が空欄でも登録できること' do
+        @user_purchase.building_name = nil
+        @user_purchase.valid?
       end
     end
 
@@ -57,36 +59,24 @@ RSpec.describe UserPurchase, type: :model do
         expect(@user_purchase.errors.full_messages).to include("Item can't be blank")
       end
 
-
-
-      
-
       it "shipping_area_idが1では登録できないこと" do
         @user_purchase.shipping_area_id = 1
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include("Shipping area can't be blank")
       end
 
-
-
-
       it "postal_codeにはハイフンが必要であること" do
-        @user_purchase.postal_code = 1234567
+        @user_purchase.postal_code = "1234567"
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
 
       it "電話番号にはハイフンは不要で、11桁以内であること" do
-        @user_purchase.phone_number = 123-4567-8901
+        @user_purchase.phone_number = "123-4567-8901"
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include("Phone number is invalid. Input half-width characters.")
       end
 
-
-  
-      
-
     end
-
   end
 end
